@@ -68,35 +68,50 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\StudentController.cs" />
-    <Compile Include="DbModels.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DbModels.Context.tt</DependentUpon>
+    <Compile Include="Department.cs">
+      <DependentUpon>ModelsFinal.tt</DependentUpon>
     </Compile>
-    <Compile Include="DbModels.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DbModels.tt</DependentUpon>
+    <Compile Include="Exam.cs">
+      <DependentUpon>ModelsFinal.tt</DependentUpon>
     </Compile>
-    <Compile Include="DbModels.Designer.cs">
+    <Compile Include="ModelsFinal.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DbModels.edmx</DependentUpon>
+      <DependentUpon>ModelsFinal.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ModelsFinal.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelsFinal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ModelsFinal.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelsFinal.edmx</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Student.cs">
-      <DependentUpon>DbModels.tt</DependentUpon>
+      <DependentUpon>ModelsFinal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="StudentMark.cs">
+      <DependentUpon>ModelsFinal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Subject.cs">
+      <DependentUpon>ModelsFinal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SubjectLecture.cs">
+      <DependentUpon>ModelsFinal.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <EntityDeploy Include="DbModels.edmx">
+    <EntityDeploy Include="ModelsFinal.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>DbModels.Designer.cs</LastGenOutput>
+      <LastGenOutput>ModelsFinal.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="DbModels.edmx.diagram">
-      <DependentUpon>DbModels.edmx</DependentUpon>
+    <None Include="ModelsFinal.edmx.diagram">
+      <DependentUpon>ModelsFinal.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
@@ -123,15 +138,15 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>Database1.mdf</DependentUpon>
     </Content>
-    <Content Include="DbModels.Context.tt">
+    <Content Include="ModelsFinal.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DbModels.edmx</DependentUpon>
-      <LastGenOutput>DbModels.Context.cs</LastGenOutput>
+      <DependentUpon>ModelsFinal.edmx</DependentUpon>
+      <LastGenOutput>ModelsFinal.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="DbModels.tt">
+    <Content Include="ModelsFinal.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DbModels.edmx</DependentUpon>
-      <LastGenOutput>DbModels.cs</LastGenOutput>
+      <DependentUpon>ModelsFinal.edmx</DependentUpon>
+      <LastGenOutput>ModelsFinal.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

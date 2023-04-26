@@ -8,8 +8,8 @@ namespace StudentApiProj
 {
     class StudentController
     {
-        
-        public string addRow(Database1Entities db, Student row)
+
+        public string addRow(DbModels db, Student row)
         {
             string res;
             try
@@ -25,7 +25,8 @@ namespace StudentApiProj
             return res;
         }
 
-        public string editRow(Database1Entities db, int id, string newName = "", string newEmail = "")
+        public string editRow(DbModels db, int id, string newFName = "", string newLName = "", string newEmail = "",
+                               string newPhone = "", string newRegDate = null, int newDept = -1)
         {
 
             string res;
@@ -37,13 +38,29 @@ namespace StudentApiProj
                     res = "Student not found, nothing to delete";
                     return res;
                 }
-                if(newName != "")
+                if(newFName != "")
                 {
-                    student.Name = newName;
+                    student.First_Name = newFName;
                 }
-                if(newEmail != "")
+                if (newLName != "")
+                {
+                    student.Last_Name = newLName;
+                }
+                if (newPhone != "")
+                {
+                    student.Phone = newPhone;
+                }
+                if (newEmail != "")
                 {
                     student.Email = newEmail;
+                }
+                if (newRegDate != "")
+                {
+                    student.RegisterDate = DateTime.Parse(newRegDate);
+                }
+                if (newDept != -1)
+                {
+                    student.DepartmentId = newDept;
                 }
                 db.SaveChanges();
                 res = "Edited row succesfukly";
@@ -55,7 +72,7 @@ namespace StudentApiProj
             return res;
         }
 
-        public string deleteRow(Database1Entities db, int id)
+        public string deleteRow(DbModels db, int id)
         {
             string res;
 
