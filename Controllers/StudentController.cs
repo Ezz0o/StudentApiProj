@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity.Migrations;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StudentApiProj
 {
     class StudentController
     {
-
+        //TEST ALL FUNCTIONS IN HERE
         public string addRow(DbModels db, Student row)
         {
             string res;
@@ -72,13 +69,20 @@ namespace StudentApiProj
 
             return res;
         }
-        public string studentsByDept(DbModels db, int DeptId, int term = -1)
+        public string studentsByDept(DbModels db, int DeptId, int term = 0)
         {
-
-            //TODO: add filtering by term(??)
             string res = "First Name\t Last Name";
 
-            List<Student> query = db.Students.Where(student => student.DepartmentId == DeptId).ToList();
+            List<Student> query = db.Students.Where(
+                student => student.DepartmentId == DeptId).ToList();
+            
+            if(term != 0)
+            {
+                query = db.Students.Where(
+                student => student.DepartmentId == DeptId &&
+                (student.Department == student.Department.Subjects.Where(subj => subj.Term == term))
+                ).ToList();
+            }
 
             if (query.Count <= 0)
             {
@@ -150,8 +154,8 @@ namespace StudentApiProj
 
         public string subjectsForStudent(DbModels db, int studentId, int DeptId, int year, int term, bool calcAvg)
         {
-            string res = "Subject\t Year\t Term\t Dept\t Avg";
-
+            string res = "Subject\t Year\t Term\t Dept\t Mark";
+            double avg = 0.0;
             var student = db.Students.Where(stu => 
             (stu.Id == studentId)
             ).First();
@@ -162,10 +166,10 @@ namespace StudentApiProj
             }
 
             var subjects = db.Subjects.Where(sub => 
+            (sub.Department.Students == sub.Department.Students.Where(std => std.Id == studentId)) &&
             (sub.Year == year) &&
-            (sub.Term == term) && 
+            (sub.Term == term) &&
             (sub.DepartmentId == DeptId)
-            
             ).ToList();
 
             if(subjects.Count <= 0)
@@ -176,10 +180,15 @@ namespace StudentApiProj
             {
                 foreach (Subject sub in subjects)
                 {
-                    res += $"\n{sub.Name}\t {sub.Year}\t {sub.Term}\t {sub.Department}\t";
+                    var mark = db.StudentMarks.Where(stdMark => stdMark.Exam.Subject == sub).First();
+                    res += $"\n{sub.Name}\t {sub.Year}\t {sub.Term}\t {sub.Department}\t {mark}";
+                    avg += mark.Mark;
                 }
             }
-
+            if(calcAvg == true)
+            {
+                res += $"\n avg of all marks: {avg}";
+            }
             return res;
         }
 
@@ -196,7 +205,6 @@ namespace StudentApiProj
             else
             {
                 //query to group lectures by subject
-                //NEEDS TESTING
                 var lectures = (from lecture in db.SubjectLectures group lecture by lecture.Subject into subjectLectureGroup select subjectLectureGroup);
                 if(term != -1)
                 {

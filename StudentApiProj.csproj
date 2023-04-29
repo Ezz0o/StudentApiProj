@@ -67,7 +67,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\DepartmentController.cs" />
+    <Compile Include="Controllers\ExamController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
+    <Compile Include="Controllers\StudnetMarkController.cs" />
+    <Compile Include="Controllers\SubjectController.cs" />
+    <Compile Include="Controllers\SubjectLectureController.cs" />
     <Compile Include="Department.cs">
       <DependentUpon>ModelsFinal.tt</DependentUpon>
     </Compile>
